@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        /* CSS STYLING */
+        body {
+            background-color: #fce4ec; /* Light pink background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .gif-container {
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Allows "Yes" to grow without breaking layout */
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #yesButton {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #f44336;
+            color: white;
+            z-index: 1; /* Keeps it above other elements if they overlap */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="question">Will you be my Valentine?</h1>
+        
+        <div class="gif-container">
+            <img id="main-gif" src="https://media.giphy.com/media/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute Cat GIF">
+        </div>
+
+        <div class="buttons">
+            <button id="yesButton">Yes</button>
+            <button id="noButton">No</button>
+        </div>
+    </div>
+
+    <script>
+        // JAVASCRIPT LOGIC
+        const messages = [
+            "Are you sure?",
+            "Really sure??",
+            "Are you positive?",
+            "Pookie please...",
+            "Just think about it!",
+            "If you say no, I will be really sad...",
+            "I will be very very very sad...",
+            "I will be very very very very sad...",
+            "Ok fine, I will stop asking...",
+            "Just kidding, say YES please! ❤️"
+        ];
+
+        let messageIndex = 0;
+
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const mainGif = document.getElementById('main-gif');
+        const questionText = document.getElementById('question');
+
+        noButton.addEventListener('click', function() {
+            // 1. Change the "No" button text
+            noButton.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            // 2. Make the "Yes" button grow
+            const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = (currentSize * 1.5) + 'px';
+            yesButton.style.padding = (parseFloat(window.getComputedStyle(yesButton).padding) * 1.2) + 'px';
+        });
+
+        yesButton.addEventListener('click', function() {
+            // 1. Change text and GIF
+            questionText.textContent = "Knew you would say yes! ❤️";
+            mainGif.src = "https://media.giphy.com/media/pbKSEFrEEudOIclaL8/giphy.gif"; 
+            
+            // 2. Hide the buttons
+            document.querySelector('.buttons').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
